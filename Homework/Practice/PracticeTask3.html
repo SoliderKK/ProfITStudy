@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        let x1 = Number(prompt("x1 = ?"));
+        let x2 = Number(prompt("x2 = ?"));
+        let x3 = Number(prompt("x3 = ?"));
+        let y1 = Number(prompt("y1 = ?"));
+        let y2 = Number(prompt("y2 = ?"));
+        let y3 = Number(prompt("y3 = ?")); 
+        let S1 = Math.PI * ((x1 - x2) ** 2 + (y1 - y2) ** 2);
+        let S2 = Math.PI * ((x2 - x3) ** 2 + (y2 - y3) ** 2);
+        let S3 = Math.PI * ((x1 - x3) ** 2 + (y1 - y3) ** 2);
+        let S4 = Math.PI * (x2 ** 2 + y2 ** 2) / 4;
+        if (S1 > S2) {
+            if (S1 > S3) {
+                if (S1 > S4) {
+                    alert("Sab");
+                } else if (S1 == S4) {
+                    alert("Sab и Sob");
+                } else {
+                    alert("Sob");
+                }
+            } else if (S1 == S3) {
+                if (S1 > S4) {
+                    alert("Sab и Sac");
+                } else if (S1 == S4) {
+                    alert("Sab и Sac и Sob");
+                } else {
+                    alert("Sob");
+                }
+            } else {
+                if (S3 > S4) {
+                    alert("Sac");
+                } else if (S3 == S4) {
+                    alert("Sac и Sob");
+                } else {
+                    alert("Sob");
+                }
+            }
+        } else if (S1 == S2) {
+            if (S1 > S3) {
+                if (S1 > S4) {
+                    alert("Sab");
+                } else if (S1 == S4) {
+                    alert("Sab и Sob");
+                } else {
+                    alert("Sob");
+                }
+            } else if (S1 == S3) {
+                if (S1 > S4) {
+                    alert("Sab и Sac");
+                } else if (S1 == S4) {
+                    alert("Sab и Sac и Sob");
+                } else {
+                    alert("Sob");
+                }
+            } else {
+                if (S3 > S4) {
+                    alert("Sac");
+                } else if (S3 == S4) {
+                    alert("Sac и Sob");
+                } else {
+                    alert("Sob");
+                }
+            }
+        } else {
+
+        }
+
+
+    </script>
+</head>
+<body>
+</body>
+</html>

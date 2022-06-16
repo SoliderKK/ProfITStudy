@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        let a = 1.8432611;
+        let b = 1.83;
+        let c = 5.1;
+        /*
+        Не нашел, к сожалению, способа деления без остатка только умножением и делением, так что предлагаю альтернативный вариант c погрешностю
+        5.1 * 100 = 509.99999999999994 
+        Любые операции умножения и деление с вещественными числами имеют риск подобных неточностей
+        */
+        function round100(num){
+            return ~~(num*10*10)/100 ; //*10*10 избегает ошибку в данном случае
+        }
+        function round1(num){
+            return ~~(num);
+        }
+        function round10000(num){
+            return ~~(num*10000)/10000 ;
+        }
+        alert("Rounding to 2 decimals: a=" + round100(a) + ", b=" + round100(b) + ", c = " + round100(c));
+        alert("Rounding to 0 decimals: a=" + round1(a) + ", b=" + round1(b) + ", c = " + round1(c));
+        alert("Rounding to 4 decimals: a=" + round10000(a) + ", b=" + round10000(b) + ", c = " + round10000(c));
+    </script>
+</head>
+<body>
+</body>
+</html>

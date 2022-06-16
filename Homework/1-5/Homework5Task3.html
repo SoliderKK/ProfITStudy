@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        let N = Number(prompt("N = ?"));
+        let mul = 1;
+        k = 1;
+        do {            
+            mul *= 1 + Math.abs(Math.sin(0.1 * k));
+            k++;
+        } while (mul <= N);
+        alert("Произведение = " + mul);
+    </script>
+</head>
+<body>
+</body>
+</html>

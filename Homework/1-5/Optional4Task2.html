@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        let a = Number(prompt("a = ?"));        
+        let b = Number(prompt("b = ?"));
+        let c = Number(prompt("c = ?"));
+        let x = Number(prompt("x = ?"));
+        let y = Number(prompt("y = ?"));
+        let brick1, brick2, hole1, hole2;
+        let fit = false;
+        if (a >= b && a >= c) {
+            if (b >= c) {
+                    brick1 = b;
+                    brick2 = c;
+                } else {
+                    brick1 = c;
+                    brick2 = b;
+                }
+        } else if (b >= a && b >= c) {
+            if (a >= c) {
+                    brick1 = a;
+                    brick2 = c;
+                } else {
+                    brick1 = c;
+                    brick2 = a;
+                }
+        } else {
+            if (a >= b) {
+                    brick1 = a;
+                    brick2 = b;
+                } else {
+                    brick1 = b;
+                    brick2 = a;
+                }
+        }
+        if (x >= y) {
+            hole1 = x;
+            hole2 = y;
+        } else {
+            hole1 = y;
+            hole2 = x;
+        }
+        if (brick1 <= hole1 && brick2 <= hole2) {
+            fit = true;
+        } else {
+            /*
+            Влезет ли кирпич при вводе данных 100, 11, 1, 10, 10
+            Влезет! Но только если вставлять его диагонально, что алгоритм сверху не проверяет.
+            Я пропущу решение геометрической задачи и системы из 5 уравнений и просто напишу результат
+            */
+           let a1 = hole2 - Math.sqrt(brick2 ** 2 - brick2 / (hole2 ** 2 / hole1 ** 2 + 1));
+           let b1 = hole1 - Math.sqrt(brick2 / (hole2 ** 2 / hole1 ** 2 + 1));
+           let diagonalMax = Math.sqrt(a1 ** 2 + b1 ** 2);
+           fit = brick1 <= diagonalMax;
+        }
+        if (fit) {
+            alert("Влезет!")
+        } else {
+            alert("Не влезет!")
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

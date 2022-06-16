@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        'use strict'
+        let M = [];
+        let min = Number.MAX_VALUE;
+        let max = Number.MIN_VALUE;
+        let minIndex, maxIndex, leftIndex, rightIndex;
+        let mul = 1;
+        if(prompt("Для самостоятельного ввода данных введите 1") == "1") {
+            let arrayLength = Number(prompt("Введите длину массива"));
+            for(let i = 0; i < arrayLength; i++)
+                M.push(Number(prompt("Введите элемент " + (i + 1))));            
+        } else 
+            M = [12, 0, 2, 14, 1, 123, 7, 9];
+        for(let i = 0; i < M.length; i++) {
+            if(M[i] <= min) {
+                min = M[i];
+                minIndex = i;
+            }
+            if(M[i] >= max) {
+                max = M[i];
+                maxIndex = i;
+            }
+        }
+        if(minIndex <= maxIndex) {
+            leftIndex = minIndex;
+            rightIndex = maxIndex;
+        } else {
+            leftIndex = maxIndex;
+            rightIndex = minIndex;
+        }
+        if(rightIndex - leftIndex <= 1) {
+            alert("Массив: " + M + "\nМежду минимальным и максимальным элементами массива нету других элементов")
+        } else {
+            for(let i = leftIndex + 1; i < rightIndex; i++)
+                mul *= M[i]; 
+            alert("Массив: " + M + "\nМежду минимальным и максимальным элементами массива " + (rightIndex - leftIndex - 1) +" других элементов и их произведение равно " + mul);               
+        }      
+    </script>
+</head>
+<body>
+</body>
+</html>

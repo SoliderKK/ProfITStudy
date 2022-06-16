@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        const start = 3672;
+        const end = 9117;
+        let sum = 0;
+        let n = 0;
+        for(let i = start; i <= end; i++) {
+            if (i % 3 == 2 & i % 5 == 4) {
+                sum += i;
+                n++;
+            }
+        }
+        alert("Количество чисел - " + n + ". Их сумма - " + sum + ".");
+    </script>
+</head>
+<body>
+</body>
+</html>

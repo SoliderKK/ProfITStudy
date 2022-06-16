@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        function daysInMonth(year, month){
+            if(month == 2)
+                return year%4 == 0 ? 29 : 28;
+            return month%2 == 0 ? 30 : 31;            
+        }
+        
+        let year = prompt("What year?");
+        let month = prompt("What month?");        
+        alert("The last day in the month is " + daysInMonth(year,month));
+    </script>
+</head>
+<body>
+</body>
+</html>

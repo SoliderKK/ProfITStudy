@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        'use strict'
+        let T;        
+        let N;
+        if(prompt("Для самостоятельного ввода данных введите 1") == "1") {
+            N = Number(prompt("Введите N - порядок матрицы T"));
+            T = new Array(N);
+            for(let i = 0; i < N; i++)
+                T[i] = new Array(N);
+            if(prompt("Если матрица является верхней треугольной, введите 1 и любой другой символ в обратном случае") == "1") {
+                for(let i = 0; i < N; i++) {
+                    for(let j = 0; j < N; j++) {
+                        if(i <= j) {
+                            T[i][j] = Number(prompt("Введите значение элемента T[" + (i + 1) + "][" + (j + 1) + "]"));
+                        } else {
+                            T[i][j] = 0;
+                        }
+                    } 
+                }
+            } else {
+                for(let i = 0; i < N; i++) {
+                    for(let j = 0; j < N; j++) {
+                        if(i >= j) {
+                            T[i][j] = Number(prompt("Введите значение элемента T[" + (i + 1) + "][" + (j + 1) + "]"));
+                        } else {
+                            T[i][j] = 0;
+                        }
+                    } 
+                }
+            }
+        } else {
+            N = 4;
+            T = [
+                [1, 7, 4, 5],
+                [0, 8, 2, 2],
+                [0, 0, 0, 9],
+                [0, 0, 0, 1]
+            ];
+        }
+
+        document.write("Изначальная матрица:<br>");    
+        for(let i = 0; i < T.length; i++) {
+            document.write(T[i] + "<br>");            
+        }
+
+        let Ttranspon = new Array(N);
+            for(let i = 0; i < N; i++)
+                Ttranspon[i] = new Array(N);
+        for(let i = 0; i < N; i++) 
+            for(let j = 0; j < N; j++) {
+                Ttranspon[i][j] = T[j][i];
+            }
+
+        document.write("Транспонированная матрица:<br>");    
+        for(let i = 0; i < Ttranspon.length; i++) {
+            document.write(Ttranspon[i] + "<br>");            
+        }    
+
+        let Tres = new Array(N);
+            for(let i = 0; i < N; i++)
+                Tres[i] = new Array(N);    
+        for(let i = 0; i < N; i++)
+            for(let j = 0; j < N; j++) {
+                Tres[i][j] = 0;
+                for(let k = 0; k < N; k++) {
+                    Tres[i][j] += T[i][k] * T[k][j];
+                }
+            }
+
+        document.write("Квадрат матрицы:<br>");    
+        for(let i = 0; i < T.length; i++) {
+            document.write(Tres[i] + "<br>");            
+        }
+
+        for(let i = 0; i < N; i++)
+            Tres[i][i]++;
+        for(let i = 0; i < N; i++)
+            for(let j = 0; j < N; j++)
+                Tres[i][j] += 3 * Ttranspon[i][j];
+
+        document.write("Результат:<br>");    
+        for(let i = 0; i < T.length; i++) {
+            document.write(Tres[i] + "<br>");            
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

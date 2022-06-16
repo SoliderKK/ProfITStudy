@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        let x = Number(prompt("x = ?")); 
+        let N = Number(prompt("N = ?"));
+        let sum = x;
+        k = 1;
+        do {
+            k++;
+            sum += (x ** k + k) / (x + k - 1); 
+        } while (sum <= N);
+        alert("Сумма = " + sum);
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        let a = Number(prompt("a = ?"));        
+        let b = Number(prompt("b = ?"));
+        let c = Number(prompt("c = ?"));
+        let isTri;
+        let isRight;     
+        if (a >= b && a >= c) {
+            isTri = a < b + c;
+            if (isTri) {
+                isRight = Math.abs(a - Math.sqrt(b ** 2 + c ** 2)) <= 0.00001; //сравнение вещественных чисел
+            }
+        } else if (b >= a && b >= c) {
+            isTri = b < a + c;
+            if (isTri) {
+                isRight = Math.abs(b - Math.sqrt(a ** 2 + c ** 2)) <= 0.00001;
+            }
+        } else {
+            isTri = c < a + b;
+            if (isTri) {
+                isRight = Math.abs(c - Math.sqrt(a ** 2 + b ** 2)) <= 0.00001;
+            }
+        }
+        alert("Треугольник со сторонами A, B, C " + (isTri ? "" : "не ") + "существует." + (isTri ? ("\nПрямоугольным он " + (isRight ? "" : "не ") + "является.") :""));        
+    </script>
+</head>
+<body>
+</body>
+</html>

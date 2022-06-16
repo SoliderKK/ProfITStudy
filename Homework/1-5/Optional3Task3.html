@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        let x = Number(prompt("Enter first side of your picture"));
+        let y = Number(prompt("Enter second side of your picture"));
+
+        let size = Math.ceil(x*y*6/8/1024); // 2**6 = 64, 6 бит для каждого пиксяля, 1Кб = 1024*8 бит
+                
+        alert("Your picture will require " + size + "Kb");
+    </script>
+</head>
+<body>  
+</body>
+</html>

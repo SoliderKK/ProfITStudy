@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        'use strict'
+        let array = [];
+        if(prompt("Для самостоятельного ввода данных введите 1") == "1") {
+            let arrayLength = Number(prompt("Введите количество биатлонистов"));            
+            for(let i = 0; i < arrayLength; i++){
+                let arrayElem = [];
+                arrayElem.push(Number(prompt("Введите имя биатлониста " + (i + 1))));                
+                arrayElem.push(Number(prompt("Введите его первый результат (0 - 5)")));                
+                arrayElem.push(Number(prompt("Введите его второй результата (0 - 5)")));
+                array.push(arrayElem);     
+            }       
+        } else {
+            array = [
+                ["John", 1, 4],
+                ["Kyle", 5, 2],
+                ["Steven", 3, 5],
+                ["Nick", 0, 0],
+                ["Alex", 2, 3],
+                ["Bill", 1, 1]
+            ];
+        }
+        document.write("Список биатлонистов: <br>");      
+        for(let i = 0; i < array.length; i++) {
+            document.write(array[i] + "<br>");            
+        }
+        
+        for(let i = 0; i < array.length; i++)
+            for(let j = array.length - 1; j > i; j--) {
+                if(array[j][1] + array[j][2] > array[j - 1][1] + array[j - 1][2]) {
+                    let temp = array[j];
+                    array[j] = array[j - 1];
+                    array[j - 1] = temp;
+                }
+            }
+        document.write("<br>Список биатлонистов отсортированный по убыванию общего результата: <br>");  
+        for(let i = 0; i < array.length; i++) {
+            document.write(array[i] + "<br>");            
+        }
+
+        for(let i = 0; i < array.length; i++)
+            if(array[i][2] < 3) {
+                array.splice(i, 1);
+                i--;
+            }
+        for(let i = 0; i < array.length; i++)
+            for(let j = array.length - 1; j > i; j--) {
+                if(array[j][1] > array[j - 1][1]) {
+                    let temp = array[j];
+                    array[j] = array[j - 1];
+                    array[j - 1] = temp;
+                }
+            }
+        document.write("<br>Список биатлонистов промахнувшихся на втором рубеже не более двух раз: <br>");  
+        for(let i = 0; i < array.length; i++) {
+            document.write(array[i] + "<br>");            
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

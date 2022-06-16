@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        let x = Math.round(Math.random());
+        let y = Math.round(Math.random());
+        let z = Math.round(Math.random());
+
+        //let result = !(x & y) | (y == z);
+        let result = (!(x && y) || (y == z))?"1":"0";
+        //понял, что здесь ошибку допустил, использовал побитовые логические операции, вместо обычных, хотя они тоже работают
+                
+        alert("(" + x + " \u2227 " + y + ") \u2192 (" + y + " \u2261 " + z + ") = " + result);
+    </script>
+</head>
+<body>  
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        let E = Number(prompt("E = ?"));
+        let sum = 0;
+        let a = 0;
+        let k = 1;
+        do {
+            a = (-1) ** k / k / (2 * k + 1);
+            sum += a;
+            k++;
+        } while (Math.abs(a) >= E);
+        alert("Сумма = " + sum);
+    </script>
+</head>
+<body>
+</body>
+</html>

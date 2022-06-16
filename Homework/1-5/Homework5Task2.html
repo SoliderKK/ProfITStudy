@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        let E = Number(prompt("E = ?"));
+        let sum = 0;
+        let a = 0;
+        let k = 1;
+        /*
+            a1 = 0.444(4)
+            a2 = 0.5224
+            a3 = 0.525
+            a4 = 0.5
+            Так как последовательность сначала возрастает, мы должны проверить как минимум первые 3 элемента.
+            Иначе при значениях E (0.444;0.525) цикл может закончиться раньше времени.
+        */
+        while (a > E | k < 4) {
+            a = 4 * k / (k ** 2 + 8 * Math.sqrt(k));
+            k++;
+            if(a >= E)
+                sum += a;
+        }
+        alert("Сумма = " + sum);
+    </script>
+</head>
+<body>
+</body>
+</html>

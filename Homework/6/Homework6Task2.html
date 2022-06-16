@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script>
+        'use strict'
+        let M = [];
+        let newArray = [];
+        let evenCount = 0;
+        if(prompt("Для самостоятельного ввода данных введите 1") == "1") {
+            let arrayLength = Number(prompt("Введите длину массива"));
+            for(let i = 0; i < arrayLength; i++)
+                M.push(Number(prompt("Введите элемент " + (i + 1))));            
+        } else 
+            M = [12, 0, 0, 34, 1, 123, 7, 0];
+        for(let elem of M) 
+            if(elem % 2 == 0) {
+                evenCount++;
+                newArray.push(elem);
+            }
+        if(newArray.length == 0) {
+            alert("Массив: " + M + "\nМассив не содержит четных чисел");
+        } else        
+            alert("Массив: " + M + "\nЧетные числа: " + newArray);        
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>  
+        let year = 2022;
+        let month = 5;
+        let day = 15;
+        let date = new Date(year, month - 1, day);
+        console.log("It's " + date.getDay() + " day of the week on " + day + "." + month + "." + year); //0 - Воскресенье, 6 - суббота
+        let dayOfWeek = date.getDay();
+        dayOfWeek = dayOfWeek == 0 ? 7 : dayOfWeek;
+        console.log("It's " + dayOfWeek + " day of the week on " + day + "." + month + "." + year); //1 - Понедельник, 7 - Воскресенье
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        'use strict'
+        let M = [];
+        if(prompt("Для самостоятельного ввода данных введите 1") == "1") {
+            let arrayLength = Number(prompt("Введите длину массива"));
+            for(let i = 0; i < arrayLength; i++)
+                M.push(Number(prompt("Введите элемент " + (i + 1))));            
+        } else 
+            M = [12, 0, 1, -7, 1, -123, -7, 0];
+        let numberFreq = new Map();
+        for(let i = 0; i < M.length; i++) {
+            if(numberFreq.has(M[i])) {
+                numberFreq.set(M[i], numberFreq.get(M[i]) + 1);
+            } else {
+                numberFreq.set(M[i], 1);
+            }
+        }
+
+        let freq = numberFreq.get(M[0]);
+        let freqValue = M[0];
+        numberFreq.forEach((value, key) => {
+            if(value > freq) {
+                freq = value;
+                freqValue = key;
+            } else if(value == freq)
+                if(freqValue > key)
+                    freqValue = key;
+        })      
+        alert("Массив: " + M + "\nНаименьшее наиболее часто встречающееся число: " + freqValue);    
+    </script>
+</head>
+<body>
+</body>
+</html>

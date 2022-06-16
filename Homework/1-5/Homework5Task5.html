@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        let a = 452022;
+        let n = 0;
+        while (n < 5) {
+            let M = 0;
+            let min = 0;
+            let max = 0;
+            for (let i = 2; i <= a / 2; ++i) { //у a нету натуральных делителей больше a/2, так можно сократить кол-во итераций в 2 раза
+                if (a % i == 0) {
+                    if (min == 0) 
+                        min = i;
+                    max = i;                    
+                }                
+            }
+            M = min + max;
+            if (M % 7 == 3) {
+                document.write("" + a + ": M = " + min + " + " + max + " = " + M + "<br>");
+                n++;
+            }
+            a++;
+        }  
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        let x1 = Number(prompt("x1 = ?"));        
+        let y1 = Number(prompt("y1 = ?"));
+        let x2 = Number(prompt("x2 = ?"));        
+        let y2 = Number(prompt("y2 = ?"));
+        let length1 = Math.sqrt(x1 ** 2 + y1 ** 2);
+        let length2 = Math.sqrt(x2 ** 2 + y2 ** 2);
+        let quad1;
+        let quad2;
+        if (x1 >= 0 && y1 >= 0) {
+            quad1 = "первому";
+        } else if (x1 <= 0 && y1 >= 0) {
+            quad1 = "второму";
+        } else if (x1 <= 0 && y1 <= 0) {
+            quad1 = "третьему";
+        } else {
+            quad1 = "четвертому";
+        }
+        if (x2 >= 0 &&  y2>= 0) {
+            quad2 = "первому";
+        } else if (x2 <= 0 && y2 >= 0) {
+            quad2 = "второму";
+        } else if (x2 <= 0 && y2 <= 0) {
+            quad2 = "третьему";
+        } else {
+            quad2 = "четвертому";
+        }
+        //нету проверки на принадлежность к осям, поэтому идет выбор по приоритету 1,2,3,4
+        alert("Точка A принадлежит к " + quad1 + " квадранту, \nТочка B принадлежит к " + quad2 + " квадранту,\nТочка \
+" + (length1 >= length2 ? "A" : "B") + " находится дальше от центра координат."
+        )
+        
+    </script>
+</head>
+<body>
+</body>
+</html>

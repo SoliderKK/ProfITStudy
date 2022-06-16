@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        let a = Number(prompt("Enter side of the prism's base"));
+
+        let Vprism = 6 * Math.sqrt(3)/4*a**2*2*a;
+        let r = Math.sqrt(3)/2*a;
+        let Vcyl = Math.PI*r**2*2*a;
+        let percentage = (1 - Vcyl/Vprism)*100;
+
+        /*
+            Так как значения длин сторон не имеют значения, весь алгоритм можно сократить до одного вывода результата
+            alert("Percentage of wasted material is 9.31%"");
+        */
+                
+        alert("Percentage of wasted material is " + percentage.toFixed(2) + "%");
+    </script>
+</head>
+<body>  
+</body>
+</html>

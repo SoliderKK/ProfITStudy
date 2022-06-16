@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title></title>
+    <script>
+        const M = new Map();
+        M.set("png", "iamge/png");
+        M.set("txt", "text/plain");
+        M.set("xm", "text/xml");
+        let text = prompt("Ввести расширение");
+        if(M.has(text)) {
+            alert("Тип файла - " + M[text]);
+        } else {
+            alert("Такого типа нету");
+        }
+        
+    </script>
+</head>
+<body>
+</body>
+</html>

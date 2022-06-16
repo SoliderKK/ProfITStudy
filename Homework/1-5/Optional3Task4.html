@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        let roomWidth = 20;
+        let roomHeight = 3;
+        let doorSize = 2;
+        let windowSize = 1;
+        let windowCount = 4;
+        let rollWidth = 2;
+        let rollLength = 100;
+
+        let wallArea = 4*roomWidth*roomHeight - doorSize - windowCount*windowSize;
+        let rollCount = wallArea/rollLength/rollWidth;
+                
+        alert("We have a square room with a width of " + roomWidth + "m and a height of " + roomHeight + "m, one door " + doorSize +
+         "m\u00B2 in size and " + windowCount + " windows " + windowSize + "m\u00B2 in size. It will take " + wallArea + "m\u00B2 of wallpaper for the whole room or " + 
+         rollCount.toFixed(2) + " rolls of wallpaper with a width of " + rollWidth + "m and a lenth of " + rollLength + "m.");
+    </script>
+</head>
+<body>  
+</body>
+</html>

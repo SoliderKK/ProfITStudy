@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title>Homework</title>
+    <script>
+        let operand = prompt("Какая операция?")
+        let x = Number(prompt("Какое первое число?"));
+        let y = Number(prompt("Какое второе число?"));
+        switch(operand) {
+            case "+": {
+                alert("Результат - " + (x + y));
+                break;
+            }
+            case "-": {
+                alert("Результат - " + (x - y));
+                break;
+            }
+            case "*": {
+                alert("Результат - " + (x * y));
+                break;
+            }
+            case "/": {
+                alert("Результат - " + (x / y));
+                break;
+            }
+            case "%": {
+                alert("Результат - " + (x % y));
+                break;
+            }
+            case "^": {
+                alert("Результат - " + (x ** y));
+                break;
+            }
+            default : {
+                alert("Нераспознанный операнд!")
+            }
+        }
+
+    </script>
+</head>
+<body>
+</body>
+</html>

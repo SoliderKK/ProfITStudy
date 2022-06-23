@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script>
+        'use strict'
+        function calculateF(x) {
+            if(x <= 5) {
+                return 2 * x;
+            } else if(x % 2 == 0) {
+                return calculateF(x - 2) + 3 * calculateF(x / 2) + x;
+            } else {
+                return calculateF(x - 1) + calculateF(x - 2) + calculateF(x - 3);
+            }
+        } 
+        alert("F(99) + F(100) = " + (calculateF(99) + calculateF(100)));
+    </script>
+</head>
+<body>
+</body>
+</html>

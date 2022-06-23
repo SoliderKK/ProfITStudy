@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script>
+        'use strict'
+        let M, N, L, array1, array2, arrayX, arrayY;
+        if(prompt("Для самостоятельного ввода данных введите 1") == "1") {
+            do {
+                M = Number(prompt("Введите M матрицы X1(M, N)"));
+                if(!(M > 0 && M % 1 == 0))
+                    alert("Некорректные введенные данные. Попробуйте ещё раз")
+            } while(!(M > 0 && M % 1 == 0))
+            do {
+                N = Number(prompt("Введите N матрицы X1(M, N)"));
+                if(!(N > 0 && N % 1 == 0))
+                        alert("Некорректные введенные данные. Попробуйте ещё раз")
+            } while(!(N > 0 && N % 1 == 0))
+            do {
+                L = Number(prompt("Введите L матрицы X2(M, L)"));
+                if(!(L > 0 && L% 1 == 0))
+                        alert("Некорректные введенные данные. Попробуйте ещё раз")
+            } while(!(L > 0) && L % 1 == 0)
+            array1 = new Array(M);
+            for(let i = 0; i < M; i++)
+                array1[i] = new Array(N);
+            array2 = new Array(M);
+            for(let i = 0; i < M; i++)
+                array2[i] = new Array(L);
+            for(let i = 0; i < M; i++)
+                for(let j = 0; j < N; j++)
+                    array1[i][j] = Number(prompt("Введите X1("+ (i + 1) +", "+ (j + 1) + ")"));                
+            for(let i = 0; i < M; i++)
+                for(let j = 0; j < L; j++)
+                    array2[i][j] = Number(prompt("Введите X2("+ (i + 1) +", "+ (j + 1) + ")"));                
+        } else {
+            M = 4;
+            N = 3;
+            L = 5;
+            array1 = [
+                [1, 7, 4],
+                [0, 8, 2],
+                [2, 9, -7],
+                [-3, 3, 5]
+            ];
+            array2 = [
+                [4, 3, 8, 5, 9],
+                [-1, 7, 1, -2, 1],
+                [7, 3, -9, 9, -3],
+                [2, -8, 0, 1, 5]
+            ];
+        }
+
+
+        let arraySort = new Array();
+        for(let i = 0; i < M; i++)
+            for(let j = 0; j < N; j++)
+                arraySort[i * N + j] = array1[i][j];
+        
+        function quickSort(array) {
+            if(array.length < 2) {
+                return array;
+            } else if (array.length == 2) {
+                if(array[0] > array[1]){
+                    let tmp = array[0];
+                    array[0] = array[1];
+                    array[1] = tmp;
+                }
+                return array;
+            } else {
+                let left = [];
+                let right = [];
+                for(let i = 1; i < array.length; i++)
+                    array[i] < array[0] ? left.push(array[i]) : right.push(array[i]);
+                return quickSort(left).concat(array[0], quickSort(right));                    
+            }
+        }
+        arraySort = quickSort(arraySort);
+        arrayX = new Array(M);
+        for(let i = 0; i < M; i++)
+            arrayX[i] = new Array(N);
+        for(let i = 0; i < M; i++)
+            for(let j = 0; j < N; j++)
+                arrayX[i][j] = arraySort[i * N + j];
+        
+        
+        let arraySum = new Array(M);
+        for(let i = 0; i < M; i++)
+            arraySum[i] = 0;
+        for(let i = 0; i < M; i++)
+            for(let j = 0; j < L; j++)
+                arraySum[i] += array2[i][j];
+        arrayY = new Array(M);
+            for(let i = 0; i < M; i++)
+                arrayY[i] = new Array(N);        
+        for(let i = 0; i < M; i++)
+            for(let j = 0; j < N; j++)
+                arrayY[i][j] = arrayX[i][j] + arraySum[i];        
+
+
+        function writeMatrix(array) {
+            for(let i = 0; i < array.length; i++) {
+                document.write(array[i] + "<br>");            
+            }
+        }
+        document.write("Матрица X1:<br>");
+        writeMatrix(array1);
+        document.write("<br>Матрица X2:<br>");
+        writeMatrix(array2);
+        document.write("<br>Матрица XX:<br>");
+        writeMatrix(arrayX);
+        document.write("<br>Матрица Y:<br>");
+        writeMatrix(arrayY);
+
+    </script>
+</head>
+<body>
+</body>
+</html>

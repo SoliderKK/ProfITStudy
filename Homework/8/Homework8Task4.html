@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script>
+        'use strict'
+        function halfInterval(fn, min, max) {
+            let x1 = min;
+            let x2 = max;
+            let x3, f1, f2, f3;
+            do {
+                f1 = fn.call(this, x1);
+                f2 = fn.call(this, x2);
+                if(f1 * f2 > 0) {
+                    return undefined;
+                } else {
+                    x3 = (x1 + x2) / 2;
+                    f3 = fn.call(this, x3);
+                    if(f3 == 0) {
+                        x1 = x3;
+                        x2 = x3;
+                    } else {
+                        if (f1 * f3 < 0) {
+                            x2 = x3;
+                        } else {
+                            x1 = x3;
+                        }
+                    }
+                }
+            } while (Math.abs(x2 - x1) > 1e-6);
+            return x3;
+        }
+
+
+        let func = function(x) {
+            return 3 * x - Math.sin(x) - 7;
+        }
+
+        let root = halfInterval(func, -1e10, 1e10);
+        if(isNaN(root)) {
+            alert("Ошибка! На данном диапазоне нет корня уравнения"); //или их > 1
+        } else {
+            alert("Корень уравнения равен " + root);
+        }
+
+         
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script>
+        'use strict'
+        function removeSpaces(str) {
+            let res = "";
+            let spaceFlag = false;
+            for(let i = 0; i < str.length; i++) {
+                if(str[i] == " ") {
+                    if (!spaceFlag) {
+                        spaceFlag = true;
+                        res += " ";
+                    }
+                } else {
+                    spaceFlag = false;
+                    res += str[i];
+                }
+            }
+            return res;            
+        } 
+
+        alert(removeSpaces(prompt("Введите стоку")));        
+    </script>
+</head>
+<body>
+</body>
+</html>

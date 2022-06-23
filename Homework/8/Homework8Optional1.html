@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script>
+        'use strict'
+        function equal(N, S) {
+            if (N < 10) {
+                return N == S;
+            } else {
+                return equal(Math.trunc(N / 10), S - N % 10);
+            }
+        }
+        let N = Number(prompt("N - ?"));
+        let S = Number(prompt("S - ?"));
+        alert("equal(" + N + ", " + S + ") = " + equal(N, S));
+    </script>
+</head>
+<body>
+</body>
+</html>

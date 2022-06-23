@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script>
+        'use strict'
+        function numberOfWays(start, end) {
+            if(start > end) {
+                return 0;
+            } else if(start == end) {
+                return 1;
+            } else {
+                return numberOfWays(start + 1, end) + numberOfWays(start * 2, end);
+            }
+        }
+
+        alert("Количество подходящих программ - " + (numberOfWays(1, 10) * numberOfWays(10, 20)));
+    </script>
+</head>
+<body>
+</body>
+</html>

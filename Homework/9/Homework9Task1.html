@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script>
+        'use strict'
+        let N;
+        let graph = [];        
+        if(prompt("Для самостоятельного ввода данных введите 1") == "1") {
+            N = Number(prompt("Введите число городов N"));
+            for(let i = 0; i < N; i++) {
+                graph[i] = [];
+            }
+            for(let i = 0; i < N; i++) {
+                let str = prompt("Введите строку города " + (i + 1) + " матрицы смежности городов");    
+                for(let j = 0; j < N; j++) {
+                    let tmp = Number(str[j]);
+                    graph[i].push((isNaN(tmp) || tmp == 0) ? 0 : 1); //однозначная интерпретация любых введенных данных
+                }
+            }        
+        } else {
+            N = 6;
+            graph = [
+                [0, 0, 0, 1, 1, 1],
+                [0, 0, 0, 0, 1, 0],
+                [0, 0, 0, 0, 0, 1],
+                [1, 1, 0, 0, 0, 0],
+                [0, 0, 0, 1, 0, 0],
+                [0, 0, 1, 0, 1, 0]
+            ]           
+        }
+
+        document.write("Матрица смежности:<br>");    
+        for(let i = 0; i < N; i++) {
+            document.write(graph[i] + "<br>");            
+        }
+
+        let roadCount = 0;
+        for(let i = 0; i < N; i++)
+            for(let j = i; j < N; j++)
+                if(graph[i][j] || graph[j][i])
+                    roadCount++;
+
+        document.write("Количество дорог: " + roadCount);    
+    </script>
+</head>
+<body>
+</body>
+</html>

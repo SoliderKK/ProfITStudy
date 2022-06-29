@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script>
+        'use strict' 
+        let graph = [];  
+        if(prompt("Для самостоятельного ввода данных введите 1") == "1") {
+            let N = Number(prompt("Введите число вершин в графе"));
+            for(let i = 0; i < N; i++)
+                graph[i] = [];
+            for(let i = 0; i < N; i++) {
+                for(let j = i + 1; j < N; j++) {
+                    let tmp = prompt("Смежны ли вершины " + (i + 1) + " и " + (j + 1) + " (1 - смежны, 0 - не смежны)");
+                    if(tmp == "1") {
+                        graph[i].push(j);
+                        graph[j].push(i);
+                    }
+                }
+            }     
+        } else {
+            graph[0] = [1, 4];
+            graph[1] = [0, 2];
+            graph[2] = [1];
+            graph[3] = [];
+            graph[4] = [0];         
+        }
+
+
+        let queue = [];
+        let visited = [];
+        let parents = [];
+        let isPossible = false;
+        visited.fill(false, 0, graph.length - 1);
+        let start = Number(prompt("Введите начало пути")) - 1;
+        queue.push(start);
+        visited[start] = true;
+        let end = Number(prompt("Введите конец пути")) - 1;
+        loop: while(queue.length > 0) {
+            let node = queue.shift();
+            for(let adj of graph[node]) {
+                if(!visited[adj]){
+                    visited[adj] = true;
+                    queue.push(adj);
+                    parents[adj] = node;
+                    if(adj == end) {
+                        isPossible = true;
+                        break loop;
+                    }
+                }
+            }
+        }
+        if(isPossible) {
+            let path = [end];
+            let parent = parents[end];
+            let length = 0;        
+            while(parent != undefined) {
+                path.push(parent);
+                parent = parents[parent];
+                length++;
+            }
+            path.reverse();
+            let pathStr = "";
+            for(let s of path)
+                pathStr += (s + 1);
+            alert("Длина пути из вершины " + (start + 1) + " в вершину " + (end + 1) + ": " + length + "\nПуть: " + pathStr);
+
+        } else {
+            alert("Длина пути из вершины " + (start + 1) + " в вершину " + (end + 1) + ": -1 (такого пути нет)");
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

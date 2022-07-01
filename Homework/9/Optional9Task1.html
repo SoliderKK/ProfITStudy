@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script>
+        'use strict'
+        let lab = [];        
+        if(prompt("Для самостоятельного ввода данных введите 1") == "1") {
+            let height = Number(prompt("Введите высоту лабиринта"));
+            let width = Number(prompt("Введите ширину лабиринта"));
+            for(let i = 0; i < height; i++) { 
+                lab[i] = [];
+                for(let j = 0; j < width; j++) {
+                    let tmp = Number(prompt("Введите значение в клетке [" + (i + 1) + "; " + (j + 1) + "] (0 - пусто, 1 - стена, 2 - отверстие)"));
+                    lab[i][j] = isNaN(tmp) || tmp == 0 ? 0 : tmp == 2 ? 2 : 1; //однозначная интерпретация любых введенных данных
+                }
+            }        
+        } else {
+            lab = [
+                [0, 0, 0, 0, 1],
+                [0, 1, 1, 0, 2],
+                [0, 2, 1, 0, 0],
+                [0, 0, 1, 0, 0]
+            ]           
+        }
+
+        document.write("Лабиринт:<br>");    
+        for(let i = 0; i < lab.length; i++) {
+            document.write(lab[i] + "<br>");            
+        }
+
+        //я пытался сделать Map с двумя ключами, но это единственный способ, который у меня получился
+        //сам граф в итоге не понадобился
+        /*let movesGraph = [];
+        for(let i = 0; i < lab.length; i++) {
+            movesGraph[i] = [];
+            for(let j = 0; j < lab[0].length; j++)
+                movesGraph[i][j] = [];
+        }*/ 
+        let queue = [];
+        let visited = [];
+        for(let i = 0; i < lab.length; i++) {
+            visited[i] = [];
+            for(let j = 0; j < lab[0].length; j++)
+                visited[i][j] = false;
+        }
+        visited[0][0] = true;
+
+        let parent;
+        let parents = [];
+        for(let i = 0; i < lab.length; i++) {
+            parents[i] = [];
+        } 
+        
+        let isPossible = false;
+        
+        let start = [0, 0];
+        queue.push(start);
+
+        function checkDirection(currentPos, xDirection, yDirection) {
+            let pos = [];
+            pos[0] = currentPos[0];
+            pos[1] = currentPos[1];
+            if(pos[0] + xDirection >= lab.length || pos[1] + yDirection >= lab[0].length || pos[0] + xDirection < 0 || pos[1] + yDirection < 0)
+                return false;          
+            if(lab[pos[0] + xDirection][pos[1] + yDirection] == 0 || lab[pos[0] + xDirection][pos[1] + yDirection] == 2) {
+                while(lab[pos[0] + xDirection][pos[1] + yDirection] == 0 || lab[pos[0] + xDirection][pos[1] + yDirection] == 2) {
+                    pos[0] += xDirection;
+                    pos[1] += yDirection;
+                    if(lab[pos[0]][pos[1]] == 2) {
+                        //movesGraph[currentPos[0]][currentPos[1]].push({x: -1, y: -1, direction: xDirection == 0 ? yDirection > 0 ? "right" : "left" : xDirection > 0 ? "up" : "down"});
+                        parents[pos[0]][pos[1]] = {x: currentPos[0], y: currentPos[1], direction: xDirection == 0 ? yDirection > 0 ? "вправо" : "влево" : xDirection > 0 ? "вниз" : "вверх"};
+                        parent = parents[pos[0]][pos[1]];
+                        return true;
+                    }
+                    if(pos[0] + xDirection >= lab.length || pos[1] + yDirection >= lab[0].length || pos[0] + xDirection < 0 || pos[1] + yDirection < 0)
+                        break;
+                }
+                //movesGraph[currentPos[0]][currentPos[1]].push({x: pos[0], y: pos[1], direction: xDirection == 0 ? yDirection > 0 ? "right" : "left" : xDirection > 0 ? "up" : "down"});
+                if(!visited[pos[0]][pos[1]]) {
+                    visited[pos[0]][pos[1]] = true;
+                    parents[pos[0]][pos[1]] = {x: currentPos[0], y: currentPos[1], direction: xDirection == 0 ? yDirection > 0 ? "вправо" : "влево" : xDirection > 0 ? "вниз" : "вверх"};
+                    queue.push([pos[0],pos[1]]);
+                }
+            }
+            return false;
+        }
+
+        while(queue.length > 0) {
+            let currentPos = queue.shift();
+            if(checkDirection(currentPos, 0, -1)) {
+                isPossible = true;
+                break;
+            }
+            if(checkDirection(currentPos, 0, 1)) {
+                isPossible = true;
+                break;
+            }
+            if(checkDirection(currentPos, -1, 0)) {
+                isPossible = true;
+                break;
+            }
+            if(checkDirection(currentPos, 1, 0)) {
+                isPossible = true;
+                break;
+            }
+        }
+
+        if(isPossible) {
+            let length = 0;   
+            let path = [];     
+            while(parent != undefined) {
+                path.push(parent.direction);
+                parent = parents[parent.x][parent.y];
+                length++;
+            }
+            path.reverse();
+            alert("Лабиринт можно решить за " + length + " действий\nДействия: " + path);
+        } else {
+            alert("Ошибка! Лабиринт не решается!");
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

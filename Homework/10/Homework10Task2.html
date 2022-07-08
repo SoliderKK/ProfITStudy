@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script>
+        'use strict'
+        class BankAccount {
+            constructor(id, holderName) {
+                this.holderName = holderName;
+                this.id = id;
+                this.yearlyInterestRate = 0.1;
+                this.balance = 0;
+            }
+            Deposit(value) {
+                this.balance += value;
+            }
+            ApplyInterest() {
+                this.balance *= 1 + this.yearlyInterestRate;
+            }
+        }
+
+        let Accounts = [];
+        Accounts[0] = new BankAccount(1, "Ivan");
+        Accounts[1] = new BankAccount(2, "Peter");
+        Accounts[2] = new BankAccount(3, "Vladimir");
+        Accounts[3] = new BankAccount(4, "Stanislav");
+        Accounts[0].Deposit(1000);
+        Accounts[1].Deposit(7500);
+        Accounts[2].Deposit(10000);
+        Accounts[2].Deposit(10000);
+        Accounts[2].Deposit(10000);
+
+        let years = 2;
+        console.log("Balance after " + years + " years:")
+        for(let i = 0; i < 4; i++) {
+            for(let j = 0; j < years; j++)
+                Accounts[i].ApplyInterest();
+            console.log(Accounts[i].holderName + ": " + Accounts[i].balance);
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

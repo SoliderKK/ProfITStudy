@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script>
+        'use strict'
+        class Worker {
+            constructor(name, surname) {
+                this.name = name;
+                this.surname = surname;
+                this.rate = 100;
+                this.days = 0;
+            }
+            getSalary() {
+                return this.rate * this.days;
+            }
+        }
+
+        let worker1 = new Worker("Kirill", "Kravchenko");
+        worker1.days = 30;
+        for(let property in worker1)
+            console.log("" + property + ": "+ worker1[property]);
+        console.log("salary: " + worker1.getSalary());
+    </script>
+</head>
+<body>
+</body>
+</html>

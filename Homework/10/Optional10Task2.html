@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script>
+        'use strict'
+        class Validator {
+            static isEmail(str) {  //статический метод
+                return /^\w+@\w+\.[a-z]+$/i.test(str);    //my_name@google.com
+            }
+            static isDomain(str) {
+                return /^www\.[a-z0-9][a-z0-9-]*[a-z0-9]\.[a-z]+$/.test(str); //www.big-data.com
+            }
+            static isDate(str) {
+                return /^\d{1,2}\.\d{1,2}\.-?\d{1,4}$/.test(str); //1.12.2022
+            }
+            static isPhone(str) {
+                return /^\+?[0-9-]{3,}$/.test(str); //+7-987-654-32-10
+            }
+        }
+
+        let str = "my_name@google.com";
+        console.log(str + " is " + (Validator.isEmail(str) ? "" : "not ") + "an e-mail");
+        str = "www.big-data.com";
+        console.log(str + " is " + (Validator.isDomain(str) ? "" : "not ") + "a domain");
+        str = "1.12.2022";
+        console.log(str + " is " + (Validator.isDate(str) ? "" : "not ") + "a date");
+        str = "+7-987-654-32-10";
+        console.log(str + " is " + (Validator.isPhone(str) ? "" : "not ") + "a phone");
+    </script>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script>
+        'use strict'
+        class User {
+            constructor(name, surname) {
+                this.name = name;
+                this.surname = surname;
+            }
+            getFullName() {
+                return "" + this.name + " " + this.surname;
+            }
+        }
+        class Student extends User {
+            constructor(name, surname, year) {
+                super(name, surname);
+                this.year = year;
+            }
+            getCourse() {
+                let course = new Date().getFullYear() - this.year + 1;
+                if(course < 1) {
+                    return "Студент еще не начал обучение";
+                } else if(course > 5) {
+                    return "Студент закончил обучение " + (course - 5) + " лет назад"
+                } else {
+                    return "" + course + " курс";
+                }
+            }
+        }
+
+        let students = [];
+        students[0] = new Student("Василий", "Пупкин", 2021);
+        students[1] = new Student("Иван", "Иванов", 2015);
+        students[2] = new Student("Пётр", "Петров", 2022);
+        for(let student of students)
+            alert(student.getFullName() + ": " + student.getCourse());
+        
+    </script>
+</head>
+<body>
+</body>
+</html>

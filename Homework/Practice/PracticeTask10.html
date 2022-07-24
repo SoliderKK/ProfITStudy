@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title></title>
+        <script>
+            let cache = {}
+            function calculateSum(number) {
+                let sum = 0;
+                for(let i = 1; i < number; i++) {
+                    sum += i;
+                }
+                return sum;
+            }
+
+            cache.results = new Map();
+            function calculateSumwithCache(cache, number) {
+                if(cache.result.has(number)) {
+                    return cache.result[number];
+                } else {
+                    let results = calculateSum(number);
+                    cache.results[number] = result;
+                    return result;
+                }
+            }
+    </script>
+</head>
+<body>
+</body>
+</html>

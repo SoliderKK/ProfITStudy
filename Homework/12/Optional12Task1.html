@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script src="cities.js"></script>
+    <script>
+        'use strict'
+        class HashTable {
+            constructor(hashSize = 1500) {
+                this.hashSize = hashSize;
+                this.table = new Array(hashSize);
+                this.load = 0;
+            }
+            hashFunction(input, mod) {
+                let str = input.toString();
+                let sum = 0;
+                for(let i = 0; i < str.length; i++)
+                    sum += str.charCodeAt(i);
+                return sum % mod;
+            }
+            add(key, value) {
+                let hash = this.hashFunction(key, this.hashSize);
+                if(this.table[hash] == undefined) {
+                    this.table[hash] = new Array();
+                    this.table[hash].push({key: key, value: value});
+                    this.load++;
+                    if(this.load / this.hashSize > 0.7)
+                        this.rehash();
+                } else {
+                    let id = this.table[hash].findIndex((elem, id, table) => {return elem.key == key;});
+                    if(id >= 0) {
+                        this.table[hash][id].value = value;
+                    } else {
+                        this.table[hash].push({key: key, value: value});
+                        this.load++;
+                        if(this.load / this.hashSize > 0.7)
+                            this.rehash();
+                    }                    
+                }
+                
+            }
+            remove(key) {
+                let hash = this.hashFunction(key, this.hashSize);
+                if(this.table[hash] == undefined) {
+                    return false;
+                }
+                let id = this.table[hash].findIndex((elem, id, table) => {return elem.key == key;});
+                if(id >= 0) {
+                    this.table[hash].splice(id, 1);
+                    this.load--;
+                    return true;
+                } else {
+                    return false;
+                }     
+            }
+            get(key) {
+                let hash = this.hashFunction(key, this.hashSize);
+                if(this.table[hash] == undefined) {
+                    return null;
+                }
+                let id = this.table[hash].findIndex((elem, id, table) => {return elem.key == key;});
+                if(id >= 0) {
+                    return this.table[hash][id].value;
+                } else {
+                    return null;
+                }    
+            }
+            rehash() {
+                this.hashSize *= 2;
+                let tmpTable = this.table;
+                this.table = new Array(this.hashSize);
+                this.load = 0;
+                for(let list of tmpTable) {
+                    if(list != undefined)
+                        for(let elem of list) 
+                            this.add(elem.key, elem.value);
+                }
+                console.log("Размер хэш таблицы увеличе до " + this.hashSize);
+            }
+
+        }
+
+        let hashTable = new HashTable(1500);
+        for(let city of citiesFile) {
+            hashTable.add(city, city);
+        }
+        while(true) {
+            let action = prompt("Выберите действие: \n1.добавить элемент\n2.удалить элемент\n3.найти элемент\nили нажмите \"Отмена\" для выхода");
+            if(action == null)
+                break;
+            action = Number(action);
+            switch(action) {
+                case 1: {
+                    let key = prompt("Введите ключ");
+                    if(key == null || key == "") {
+                        alert("Некорректно введенные данные");
+                        break;
+                    }
+                    let value = prompt("Введите значение");
+                    if(value == null || value == "") {
+                        alert("Некорректно введенные данные");
+                        break;
+                    }
+                    hashTable.add(key, value);
+                    break;
+                }
+                case 2: {
+                    let key = prompt("Введите ключ");
+                    if(key == null || key == "") {
+                        alert("Некорректно введенные данные");
+                        break;
+                    }
+                    if(hashTable.remove(key)) {
+                        alert("Элемент успешно удален");
+                    } else {
+                        alert("Элемента с данным ключом не найдено");
+                    }
+                    break;
+                }
+                case 3: {
+                    let key = prompt("Введите ключ");
+                    if(key == null || key == "") {
+                        alert("Некорректно введенные данные");
+                        break;
+                    }
+                    let value = hashTable.get(key);
+                    if(value) {
+                        alert("Значение: " + value);
+                    } else {
+                        alert("Элемента с данным ключом не найдено");
+                    }
+                    break;
+                }
+            }
+            console.log("Количество элементов в хэш-таблице: " + hashTable.load + ", размер массива: " + hashTable.hashSize + ", коэффициент заполнения: " + (hashTable.load / hashTable.hashSize).toFixed(2));
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

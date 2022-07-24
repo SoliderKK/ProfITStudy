@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script src="cities.js"></script>
+    <script>
+        'use strict'
+        /*
+        Я настаиваю, что задание некорректно отражает работу хеш-таблицы. За счет того, что мы храним имя города в качестве значения,
+        мы можем использовать его для разрешения коллизий и выбора правильного элемента из списка, так как имя города также является ключом
+        (мне кажется, называть хэш имени города ключом неправильно). При реальной работе хэш-таблицы мы НЕ ЗНАЕМ заранее искомое значения,
+        и для выбора правильного элемента из списка с одним хэшем нам потребуется в хэш-таблице также хранить и сам ключ.
+        TL;DR: хэш-таблица хранит пары ключ-значение, а у нас есть только название города
+        Я реализовал хэш-таблицу, где имя города является и ключом и значением.
+        */
+
+        class HashTable {
+            constructor(hashSize = 8192) {
+                this.hashSize = hashSize;
+                this.table = new Array(hashSize);
+            }
+            hashFunction(input, mod) {
+                let str = input.toString();
+                let sum = 0;
+                for(let i = 0; i < str.length; i++)
+                    sum += str.charCodeAt(i);
+                return sum % mod;
+            }
+            add(key, value) {
+                let hash = this.hashFunction(key, this.hashSize);
+                if(this.table[hash] == undefined) {
+                    this.table[hash] = new Array();
+                    this.table[hash].push({key: key, value: value});
+                } else {
+                    let id = this.table[hash].findIndex((elem, id, table) => {return elem.key == key;});
+                    if(id >= 0) {
+                        this.table[hash][id].value = value;
+                    } else {
+                        this.table[hash].push({key: key, value: value});
+                    }                    
+                }
+            }
+            remove(key) {
+                let hash = this.hashFunction(key, this.hashSize);
+                if(this.table[hash] == undefined) {
+                    return false;
+                }
+                let id = this.table[hash].findIndex((elem, id, table) => {return elem.key == key;});
+                if(id >= 0) {
+                    this.table[hash].splice(id, 1);
+                    return true;
+                } else {
+                    return false;
+                }     
+            }
+            get(key) {
+                let hash = this.hashFunction(key, this.hashSize);
+                if(this.table[hash] == undefined) {
+                    return null;
+                }
+                let id = this.table[hash].findIndex((elem, id, table) => {return elem.key == key;});
+                if(id >= 0) {
+                    return this.table[hash][id].value;
+                } else {
+                    return null;
+                }    
+            }
+        }
+
+        let hashTable = new HashTable(8192);
+        for(let city of citiesFile) {
+            hashTable.add(city, city);
+        }
+        while(true) {
+            let action = prompt("Выберите действие: \n1.добавить элемент\n2.удалить элемент\n3.найти элемент\nили нажмите \"Отмена\" для выхода");
+            if(action == null)
+                break;
+            action = Number(action);
+            switch(action) {
+                case 1: {
+                    let key = prompt("Введите ключ");
+                    if(key == null || key == "") {
+                        alert("Некорректно введенные данные");
+                        break;
+                    }
+                    let value = prompt("Введите значение");
+                    if(value == null || value == "") {
+                        alert("Некорректно введенные данные");
+                        break;
+                    }
+                    hashTable.add(key, value);
+                    break;
+                }
+                case 2: {
+                    let key = prompt("Введите ключ");
+                    if(key == null || key == "") {
+                        alert("Некорректно введенные данные");
+                        break;
+                    }
+                    if(hashTable.remove(key)) {
+                        alert("Элемент успешно удален");
+                    } else {
+                        alert("Элемента с данным ключом не найдено");
+                    }
+                    break;
+                }
+                case 3: {
+                    let key = prompt("Введите ключ");
+                    if(key == null || key == "") {
+                        alert("Некорректно введенные данные");
+                        break;
+                    }
+                    let value = hashTable.get(key);
+                    if(value) {
+                        alert("Значение: " + value);
+                    } else {
+                        alert("Элемента с данным ключом не найдено");
+                    }
+                    break;
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

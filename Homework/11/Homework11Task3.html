@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script>
+        'use strict'
+        function hashFunction(input, base) {
+            let str = input.toString();
+            let sum = 0;
+            for(let i = 0; i < str.length; i++)
+                sum += str.charCodeAt(i);
+            return (sum % 256).toString(base);
+        }
+        function convertCharCode(num) {
+            if(num % 62 < 10) {
+                return num % 62 + 48;  //58(0)
+            } else if (num % 62 < 36) {
+                return num % 62 + 55;  //65(A) - 10 = 55
+            } else {
+                return num % 62 + 61;  //97(a) - 10 - 26 = 61
+            }
+        }
+        
+        let str = "qwerty";
+        let h = hashFunction(str, 16);
+        console.log("h(" + str + ") = " + h);
+
+        let matchingStr = [];
+        for(let i = 0; i < 62; i ++)
+            for(let j = 0; j < 62; j ++) {
+                let s = String.fromCharCode(convertCharCode(i), convertCharCode(j));
+                if (hashFunction(s, 16) == h)
+                    matchingStr.push(s);
+            }
+        console.log("Matching strings:");
+        console.log(matchingStr);
+    </script>
+</head>
+<body>
+</body>
+</html>

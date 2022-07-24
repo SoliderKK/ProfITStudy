@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script src="cities.js"></script>
+    <script>
+        'use strict'
+        class HashTable {
+            constructor(hashSize = 1500) {
+                this.hashSize = hashSize;
+                this.table = new Array(hashSize);
+                this.load = 0;
+            }
+            hashFunction(input, mod) {
+                let str = input.toString();
+                let sum = 0;
+                for(let i = 0; i < str.length; i++)
+                    sum += str.charCodeAt(i);
+                return sum % mod;
+            }
+            nextId(id) {
+                id++;
+                if(id == this.hashSize)
+                    id = 0;
+                return id;
+            }
+            prevId(id) {
+                id--;
+                if(id == -1)
+                    id = this.hashSize - 1;
+                return id;
+            }
+            add(key, value) {
+                let hash = this.hashFunction(key, this.hashSize);
+                if(this.table[hash] == undefined) {
+                    this.table[hash] = {key: key, value: value};
+                    this.load++;
+                    if(this.load / this.hashSize > 0.7)
+                        this.rehash();
+                } else {
+                    if(this.table[hash].key == key) {
+                        this.table[hash].value = value;
+                    } else {
+                        let id = hash;
+                        //когда цепочка доходит до конца массива, можно либо продолжить с начала массива,
+                        //либо провести рехэшинг всей таблицы, но я не уверен какой способ более подходящий
+                        do {
+                            id = this.nextId(id);
+                        } while(this.table[id] != undefined);
+                        this.table[id] = {key: key, value: value};
+                        this.load++;
+                        if(this.load / this.hashSize > 0.7)
+                            this.rehash();
+                    }                    
+                }
+                
+            }
+            remove(key) {
+                let hash = this.hashFunction(key, this.hashSize);
+                if(this.table[hash] == undefined) {
+                    return false;
+                }
+                let id = hash;
+                do {
+                    if(this.table[id].key == key) {
+                        this.table[id] = undefined;
+                        //при использовании метода открытой адресации удаление элементов из хэш-таблицы проблематично
+                        //одним из решений является сдвиг всех элементов в цепочке, стоящих не на своем месте, на 1 шаг назад
+                        let skip = 0;
+                        while(this.table[this.nextId(id)] != undefined) {
+                            id = this.nextId(id);
+                            if(this.hashFunction(this.table[id].key) != id) {
+                                let moveId = this.prevId(id);
+                                for(let i = 0; i < skip; i++)
+                                    moveId = this.prevId(moveId);
+                                this.table[moveId] = this.table[id];
+                                this.table[id] = undefined;
+                                skip = 0;
+                            } else {
+                                skip++;
+                            }
+                        }
+                        this.load--;
+                        return true;
+                    }
+                    id = this.nextId(id);
+                } while(this.table[id] != undefined);
+                return false;   
+            }
+            get(key) {
+                let id = this.hashFunction(key, this.hashSize);
+                while(this.table[id] != undefined) {
+                    if(this.table[id].key == key) {
+                        return this.table[id].value;
+                    } else {
+                        id = this.nextId(id);
+                    }
+                } 
+                return null;
+            }
+            rehash() {
+                this.hashSize *= 2;
+                let tmpTable = this.table;
+                this.table = new Array(this.hashSize);
+                this.load = 0;
+                for(let elem of tmpTable) {
+                    if(elem != undefined)
+                        this.add(elem.key, elem.value);
+                }
+                console.log("Размер хэш таблицы увеличе до " + this.hashSize);
+            }
+
+        }
+
+        let hashTable = new HashTable(1500);
+        for(let city of citiesFile) {
+            hashTable.add(city, city);
+        }
+        while(true) {
+            let action = prompt("Выберите действие: \n1.добавить элемент\n2.удалить элемент\n3.найти элемент\nили нажмите \"Отмена\" для выхода");
+            if(action == null)
+                break;
+            action = Number(action);
+            switch(action) {
+                case 1: {
+                    let key = prompt("Введите ключ");
+                    if(key == null || key == "") {
+                        alert("Некорректно введенные данные");
+                        break;
+                    }
+                    let value = prompt("Введите значение");
+                    if(value == null || value == "") {
+                        alert("Некорректно введенные данные");
+                        break;
+                    }
+                    hashTable.add(key, value);
+                    break;
+                }
+                case 2: {
+                    let key = prompt("Введите ключ");
+                    if(key == null || key == "") {
+                        alert("Некорректно введенные данные");
+                        break;
+                    }
+                    if(hashTable.remove(key)) {
+                        alert("Элемент успешно удален");
+                    } else {
+                        alert("Элемента с данным ключом не найдено");
+                    }
+                    break;
+                }
+                case 3: {
+                    let key = prompt("Введите ключ");
+                    if(key == null || key == "") {
+                        alert("Некорректно введенные данные");
+                        break;
+                    }
+                    let value = hashTable.get(key);
+                    if(value) {
+                        alert("Значение: " + value);
+                    } else {
+                        alert("Элемента с данным ключом не найдено");
+                    }
+                    break;
+                }
+            }
+            console.log("Количество элементов в хэш-таблице: " + hashTable.load + ", размер массива: " + hashTable.hashSize + ", коэффициент заполнения: " + (hashTable.load / hashTable.hashSize).toFixed(2));
+            /*
+            используемая хэш-функция плохо подходит под используемые данные
+            присутствует серьезная проблема кластеризации, многие элементы сдвинуты на сотни позиций
+            */
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>

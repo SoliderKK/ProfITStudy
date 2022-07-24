@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <meta charset="UTF-8">   
+    <title>Homework</title>
+    <script>
+        'use strict'
+        class SumCalculator {
+            constructor() {
+                this.cache = new Array();
+                this.counter = 0;
+            }            
+            calculateSum(number) {
+                let sum = 0;
+                for(let i = 0; i < number; i++)
+                    sum += i;
+                return sum;
+            }
+            calculateSumWithCache(arg) {
+                let id = this.cache.findIndex((val, id, cache) => {return val.arg == arg;});
+                if(id >= 0) {
+                    this.cache[id].lastUsed = this.counter;
+                    this.counter++;
+                    return this.cache[id].res;
+                } else {
+                    let res = this.calculateSum(arg);
+                    if(this.cache.length < 3) {
+                        this.cache.push({arg: arg, res: res, lastUsed: this.counter});
+                    } else {
+                        let replaceId = 0;
+                        let lastUsed = this.cache[0].lastUsed;
+                        for(let i = 1; i < this.cache.length; i++)
+                            if(lastUsed > this.cache[i].lastUsed) {
+                                lastUsed = this.cache[i].lastUsed;
+                                replaceId = i;
+                            }
+                            this.cache[replaceId] = {arg: arg, res: res, lastUsed: this.counter};
+                    }
+                    this.counter++;
+                    return res;   
+                }            
+            }
+            cacheLog() {
+                console.log("Cache " + this.counter + ":");
+                for(let elem of this.cache) {
+                    console.log("arg: " + elem.arg + ", res: " + elem.res + ", lastUsed: " + elem.lastUsed);
+                }
+            }
+        }
+
+        
+        let calculator = new SumCalculator();
+        while(true) {
+            let arg = prompt("Введите число или нажмите \"Отмена\" для выхода");
+            if(arg == null)
+                break;
+            arg = Number(arg);
+            if(isNaN(arg)) {
+                alert("Введено не число");
+                continue;
+            }
+            alert("SumCalculator(" + arg + ") = " + calculator.calculateSumWithCache(arg));
+            calculator.cacheLog();
+        }
+
+
+        
+        
+    </script>
+</head>
+<body>
+</body>
+</html>

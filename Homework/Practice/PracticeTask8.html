@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    
+    <title></title>
+        <script>
+            let calculator = {
+                read(){
+                    this.number1 = +prompt('Введите первое значение:',5);
+                    this.number2 = +prompt('Введите второе значение:',10);
+                },
+                sum(){
+                    if(('number1' in this) && ('number2' in this)){
+                    alert(this.number1 + this.number2);
+                    return this.number1 + this.number2;
+                    }else{
+                    alert('Значения не введены, введите значения.');
+                    this.read();
+                    return this.sum();
+                    }
+                }
+            }
+            alert(calculator.sum());
+    </script>
+</head>
+<body>
+</body>
+</html>
